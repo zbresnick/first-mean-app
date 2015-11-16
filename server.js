@@ -28,7 +28,6 @@ if(env === 'development') {
   mongoose.connect('mongodb://localhost/first-mean-app');
 } else {
   mongoose.connect('mongodb://localhost/first-mean-app');
-
 }
 
 var db = mongoose.connection;
