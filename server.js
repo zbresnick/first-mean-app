@@ -27,7 +27,7 @@ app.use(express.static(__dirname + '/public'));
 if(env === 'development') {
   mongoose.connect('mongodb://localhost/first-mean-app');
 } else {
-  mongoose.connect('mongodb://localhost/first-mean-app');
+  mongoose.connect('mongodb://zdb86:changeme1@ds055564.mongolab.com:55564/heroku_6kh52lv9');
 }
 
 var db = mongoose.connection;
