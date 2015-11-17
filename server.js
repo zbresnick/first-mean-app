@@ -35,21 +35,14 @@ db.on('error', console.error.bind(console, 'connection error...'));
 db.once('open', function callback() {
   console.log('first-mean-app database opened');
 });
-var messageSchema = mongoose.Schema({message: String});
-var message = mongoose.model('message', messageSchema);
-var mongoMessage;
-message.findOne().exec(function(err, messageDoc) {
-  mongoMessage = messageDoc.message;
-});
+
 
 app.get('/partials/:partialPath', function(req, res) {
   res.render('partials/' + req.params.partialPath);
 });
 
 app.get('*', function(req, res) {
-  res.render('index', {
-    mongoMessage: mongoMessage
-  });
+  res.render('index');
 });
 
 var port = process.env.PORT ||  3030;
