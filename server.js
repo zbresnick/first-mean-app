@@ -9,14 +9,7 @@ var config = require('./server/config/config')[env];
 
 require('./server/config/express')(app, config);
 
-mongoose.connect(config.db);
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error...'));
-db.once('open', function callback() {
-  console.log('first-mean-app database opened');
-});
-
+require('./server/config/mongoose')(config);
 
 app.get('/partials/*', function(req, res) {
   res.render('../../public/app/' + req.params[0]);
