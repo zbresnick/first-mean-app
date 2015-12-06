@@ -1,4 +1,4 @@
-extends ../includes/layout.jade
+extends ../includes/layout.jade 
 
 block main-content
   .navbar.navbar-inverse.navbar-fixed-top
@@ -10,7 +10,7 @@ block main-content
         ul.nav.navbar-nav
           li
             a(href='/') home
-        div(ng-include="'/partials/navbar-login'")
+        div(ng-include="'/partials/account/navbar-login'")
   section.content
     div(ng-view)
   hr
