@@ -1,5 +1,7 @@
 var express = require('express'),
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -11,13 +13,31 @@ require('./server/config/express')(app, config);
 
 require('./server/config/mongoose')(config);
 
-app.get('/partials/*', function(req, res) {
-  res.render('../../public/app/' + req.params[0]);
+var User = mongoose.model('User');
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({username: username}).exec(function(err, user) {
+      if(user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    });
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  if(user) {
+    done(null, user._id)
+  }
 });
 
-app.get('*', function(req, res) {
-  res.render('index');
+passport.deserializeUser(function() {
+
 });
+
+
+require('./server/config/routes')(app);
 
 var port = process.env.PORT ||  3030;
 app.listen(config.port);
