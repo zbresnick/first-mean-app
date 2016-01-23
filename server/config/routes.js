@@ -13,8 +13,9 @@ module.exports = function(app) {
       req.logIn(user, function(err) {
         if(err) return next(err);
         res.send({sucess:true});
-      })
+      });
     });
+    auth(req, res, next);
   });
 
   app.get('*', function(req, res) {

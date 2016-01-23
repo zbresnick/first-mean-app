@@ -1,5 +1,5 @@
-angular.module('app').controller('fmaNavBarLoginCtrl', function($scope) {
+angular.module('app').controller('fmaNavBarLoginCtrl', function($scope, $http) {
   $scope.signin = function(username, password) {
-    console.log("Login Controller");
+    $http.post('/login', {username: username, password: password}).then(function )
   }
 });

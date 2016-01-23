@@ -32,8 +32,11 @@ passport.serializeUser(function(user, done) {
   }
 });
 
-passport.deserializeUser(function() {
-
+passport.deserializeUser(function(id, done) {
+  user.findOne({_id:id}).exec(function(err, user) {
+    if(user) return done(null, user);
+    else return done(null, false);
+  });
 });
 
 
