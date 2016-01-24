@@ -1,12 +1,12 @@
-angular.module('app').controller('fmaNavBarLoginCtrl', function($scope, $http, fmaIdentity, fmaNotifier) {
+angular.module('app').controller('fmaNavBarLoginCtrl', function($scope, $http, fmaIdentity, fmaNotifier, fmaAuth) {
+  $scope.identity = fmaIdentity;
   $scope.signin = function(username, password) {
-    $http.post('/login', {username: username, password: password}).then(function(response) {
-      if(response.data.success) {
-        fmaIdentity.currentUser = response.data.user;
+    fmaAuth.authenticateUser(username, password).then(function(success) {
+      if(success) {
         fmaNotifier.notify('You have successfully logged in!');
       } else {
         fmaNotifier.notify('Invalid login!');
       }
-    })
+    });
   }
 });
